@@ -24,3 +24,11 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.desktop-menu {
+  @apply hidden md:flex space-x-6;
+}
+
+.mobile-menu {
+  @apply  md:hidden px-4 pb-4;
+}

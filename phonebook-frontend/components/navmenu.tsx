@@ -3,7 +3,7 @@
 import {  useState } from "react";
 import { Menu } from "./menu";
 
-export default function NavMenu() {
+export default function NavMenu({ isLoggedIn, userName }: { isLoggedIn: boolean; userName?: string }) {
 
   const [menuOpen, setMenuOpen] = useState(false);
   function toggleMenu() {
@@ -21,9 +21,8 @@ export default function NavMenu() {
       </div>
 
 
-      <div className={
-        `hidden md:flex space-x-6`}>
-          <Menu className="hover:text-gray-200" />
+      <div className="desktop-menu">
+          <Menu className="hover:text-gray-200"  isLoggedIn={isLoggedIn} userName={userName}/>
       </div>
 
       <div className="md:hidden">
@@ -40,8 +39,8 @@ export default function NavMenu() {
   </div>
 
 
-  <div id="menu" className={`${menuOpen ? '' : 'hidden'} md:hidden px-4 pb-4`}>
-    <Menu className="block py-2 hover:text-gray-200" />
+  <div id="menu" className={`${menuOpen ? '' : 'hidden'} mobile-menu`}>
+    <Menu className="block py-2 hover:text-gray-200" isLoggedIn={isLoggedIn} userName={userName} />
   </div>
 </nav>
     ) };
