@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../PhoneBook.Data/PhoneBook.Data.csproj" Id="ce157e99-ebac-4438-94e8-a8befc947d7a" />
   <Project Path="PhoneBookApi.csproj" />
 </Solution>

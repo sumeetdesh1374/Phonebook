@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using PhoneBook.Data;
 using PhoneBookApi.Models;
 
 namespace PhoneBookApi.Controllers
@@ -9,6 +11,12 @@ namespace PhoneBookApi.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        private readonly PhoneBookDbContext _context;
+
+        public HomeController(PhoneBookDbContext context)
+        {
+            _context = context;
+        }
         [Authorize]
         public async Task<IEnumerable<Contact>> Get()
         {
