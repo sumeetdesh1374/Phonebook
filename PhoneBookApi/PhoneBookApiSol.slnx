@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="../PhoneBook.Data/PhoneBook.Data.csproj" Id="ce157e99-ebac-4438-94e8-a8befc947d7a" />
+  <Project Path="../PhoneBook.Services/PhoneBook.Services.csproj" Id="964c628e-d5b6-4dba-a914-3771e86a465d" />
+  <Project Path="../PhoneBook.Utils/PhoneBook.Utils.csproj" />
   <Project Path="PhoneBookApi.csproj" />
 </Solution>

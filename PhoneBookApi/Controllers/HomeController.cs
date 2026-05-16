@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using PhoneBook.Data;
+using PhoneBook.Utils;
 using PhoneBookApi.Models;
+using System.Security.Claims;
 
 namespace PhoneBookApi.Controllers
 {
@@ -12,39 +16,39 @@ namespace PhoneBookApi.Controllers
     public class HomeController : ControllerBase
     {
         private readonly PhoneBookDbContext _context;
+        private readonly IConfiguration _configuration; 
 
-        public HomeController(PhoneBookDbContext context)
+        public HomeController(PhoneBookDbContext context,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         [Authorize]
         public async Task<IEnumerable<Contact>> Get()
         {
-            var contacts = new List<Contact>
-            {
-                new Contact
+            // Get User Profile
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+            // Create 
+
+
+            var contacts = await _context.Contact.Include(x=>x.Category)
+                .Where(c => c.Profile.Email  == userEmail)
+                .Select(c => new Contact
                 {
-                    Id = 1,
-                    FirstName = "John",
-                    LastName = "Doe",
-                    Email = "john.doe@example.com",
-                    PhoneNumber = "123-456-7890",
-                    CategoryId = 1,
-                    CategoryName = "Friends"
-                },
-                new Contact
-                {
-                    Id = 2,
-                    FirstName = "Jane",
-                    LastName = "Smith",
-                    Email = "jane.smith@example.com",
-                    PhoneNumber = "987-654-3210",
-                    CategoryId = 1,
-                    CategoryName = "Friends"
-                }
-            };
+                    Id = c.Id,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Email = c.Email,
+                    PhoneNumber = c.PhoneNumber,
+                    CategoryId = c.CategoryId,
+                    CategoryName = c.Category.Name
+                })
+                .ToListAsync();
 
             return contacts;
         }
     }
 }
+                  
+      

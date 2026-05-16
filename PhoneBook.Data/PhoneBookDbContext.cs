@@ -11,6 +11,8 @@ namespace PhoneBook.Data
         public DbSet<Contact>  Contact { get; set; }
         public DbSet<Category> Category { get; set; }
 
+        public DbSet<UserProfile> UserProfile { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=PhoneBook;Trusted_Connection=True;TrustServerCertificate=True;",

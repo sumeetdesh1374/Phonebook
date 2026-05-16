@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PhoneBook.Data.Entities
@@ -14,7 +15,13 @@ namespace PhoneBook.Data.Entities
         public required string LastName { get; set; }
         public required string Email { get; set; }
         public required string PhoneNumber { get; set; }
+
+        [ForeignKey(nameof(CategoryId))]
         public int CategoryId { get; set; }
         public required Category Category { get; set; }
+
+        [ForeignKey(nameof(ProfileId))]
+        public required int ProfileId { get; set; } 
+        public required UserProfile Profile { get; set; }
     }
 }

@@ -8,7 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PhoneBook.Utils\**" />
+    <Content Remove="PhoneBook.Utils\**" />
+    <EmbeddedResource Remove="PhoneBook.Utils\**" />
+    <None Remove="PhoneBook.Utils\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="10.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -20,6 +28,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PhoneBook.Data\PhoneBook.Data.csproj" />
+    <ProjectReference Include="..\PhoneBook.Services\PhoneBook.Services.csproj" />
+    <ProjectReference Include="..\PhoneBook.Utils\PhoneBook.Utils.csproj" />
   </ItemGroup>
 
 </Project>
