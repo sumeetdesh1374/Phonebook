@@ -56,6 +56,7 @@ builder.Services.AddCors(policy =>
 
 builder.Services.Configure<AuthConfig>(builder.Configuration.GetSection(AuthConfig.AUTH));
 builder.Services.AddScoped <IProfileService,ProfileService>();
+builder.Services.AddScoped<IContactService, ContactService>();
 
 
 //builder.Services.AddCors( "AllowAll",policy=>

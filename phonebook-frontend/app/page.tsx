@@ -2,7 +2,7 @@ import Pager from "@/components/pager";
 import { auth0 } from "@/lib/auth0";
 import { getAccessToken } from '@auth0/nextjs-auth0';
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams?: Record<string, string> }) {
  const session = await auth0.getSession();
 
   if (!session) {
@@ -18,14 +18,18 @@ export default async function Page() {
   }
 
      const accessToken = session?.tokenSet?.accessToken;
+     const query =await searchParams
+     const pageNumber = query?.pageNumber ? parseInt(query.pageNumber) : 1;
+     const pageSize = query?.pageSize ? parseInt(query.pageSize) : 5;
 
-     const response = await fetch(`${process.env.PHONEBOOK_API_URL}/api/home`, {
+     const response = await fetch(`${process.env.PHONEBOOK_API_URL}/api/home?pageSize=${pageSize}&pageNumber=${pageNumber}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
     
-     const contacts: Contact[] = await response.json();
+     const pagedList: PagedList<Contact> = await response.json();
+      const contacts = pagedList.records;
 
   return (
       
@@ -57,10 +61,10 @@ export default async function Page() {
       </div>
       <div>
          <Pager 
-          currentPage={1}
-          pageSize={10}
-          totalCount={400}
-          apiEndpoint={`${process.env.PHONEBOOK_API_URL}/api/home`}
+          currentPage={pageNumber}
+          pageSize={pageSize}
+          totalCount={pagedList.totalCount}
+          apiEndpoint={`/`}
         />
       </div>
      

@@ -7,3 +7,8 @@ interface Contact {
     categoryId: number;
     categoryName: string;
 }
+
+interface PagedList<T> {
+    records: T[];
+    totalCount: number;
+}
