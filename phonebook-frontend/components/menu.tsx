@@ -5,7 +5,8 @@ export function Menu({ className,isLoggedIn, userName }: { className?: string; i
    if(isLoggedIn) {
      return  <>
      
-            <a href="#" className={className}>Home</a>
+            <a href="/" className={className}>Home</a>
+        <a href="/contacts/create" className={className}>Create Contact</a>
         <a href="#" className={className}>Manage Catagories</a>
            <a href="#" className={className}>Profile</a>
         <a href="#" className={className}>{ `Welcome, ${userName}` }</a>

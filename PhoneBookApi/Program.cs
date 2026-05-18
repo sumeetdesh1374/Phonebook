@@ -46,17 +46,20 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(policy =>
 {
-    policy.AddPolicy("AllowAll", builder =>
+    policy.AddPolicy(name: "AllowAll", options =>
      {
-           builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-       });
+         options.WithOrigins("http://localhost:3000")
+               .AllowAnyMethod()
+              .AllowAnyHeader() // This allows the 'Authorization' header
+              .AllowCredentials();
+
+     });
 });
 
 builder.Services.Configure<AuthConfig>(builder.Configuration.GetSection(AuthConfig.AUTH));
 builder.Services.AddScoped <IProfileService,ProfileService>();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
 //builder.Services.AddCors( "AllowAll",policy=>
@@ -69,6 +72,7 @@ builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -79,9 +83,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
+
 
 app.UseAuthentication();
+
+
 
 app.UseAuthorization();
 

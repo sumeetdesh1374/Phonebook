@@ -1,14 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using PhoneBook.Data;
 using PhoneBook.Services;
 using PhoneBook.Services.Models;
-using PhoneBook.Utils;
-using PhoneBookApi.Models;
 using System.Security.Claims;
 
 namespace PhoneBookApi.Controllers

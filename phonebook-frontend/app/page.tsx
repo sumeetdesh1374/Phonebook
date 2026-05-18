@@ -35,6 +35,13 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
       
 
     <div className="m-auto max-w-4xl p-4">
+      <div className="my-4">
+         <a className="w-full  px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+        href="/contacts/create"
+        >
+          Create new Contact
+        </a>
+      </div>
       <div>
          <table className="w-full table-auto border-collapse border border-slate-400 ">
         <thead className="bg-slate-50">
