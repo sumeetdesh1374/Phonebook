@@ -33,5 +33,7 @@ namespace PhoneBook.Services
         /// Deletes a contact by id.
         /// </summary>
         Task DeleteContactAsync(int contactId);
+
+        Task<ContactDto> GetContactByIdAsync(int contactId);
     }
 }

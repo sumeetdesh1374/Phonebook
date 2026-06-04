@@ -113,5 +113,21 @@ namespace PhoneBook.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<ContactDto> GetContactByIdAsync(int contactId)
+        {
+            var existingContact = await _context.Contact.Where(c => c.Id == contactId).Select(x => new ContactDto
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber,
+                CategoryId = x.CategoryId,
+                CategoryName = x.Category.Name
+            }).FirstOrDefaultAsync();
+            if (existingContact == null)
+                throw new Exception($"Contact with Id {contactId} not found.");
+            return existingContact;
+        }
     }
 }

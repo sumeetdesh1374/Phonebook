@@ -35,6 +35,14 @@ namespace PhoneBookApi.Controllers
         }
 
         [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ContactDto> Get(int id)
+        {
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            return await _contactService.GetContactByIdAsync(id);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Post(ContactDto contact)
         {

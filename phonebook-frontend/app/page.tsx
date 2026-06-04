@@ -7,13 +7,9 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
 
   if (!session) {
     return (
-      <>
-        {/* Redirects to Auth0 to sign up */}
-        <a href="/auth/login?screen_hint=signup">Signup</a>
-        <br />
-        {/* Redirects to Auth0 to log in */}
-        <a href="/auth/login">Login</a>
-      </>
+       <h1 className="mx-auto">Please login or signup
+      </h1>
+
     );
   }
 
@@ -51,6 +47,7 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
             <th className="border border-slate-300 p-2 text-left">Phone Number</th>
             <th className="border border-slate-300 p-2 text-left">Email</th>
             <th className="border border-slate-300 p-2 text-left">Category</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -61,6 +58,14 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
               <td className="border border-slate-300 p-2">{contact.phoneNumber}</td>
               <td className="border border-slate-300 p-2">{contact.email}</td>
               <td className="border border-slate-300 p-2">{contact.categoryName}</td>
+              <td className="border border-slate-300 p-2">
+                <a
+                  href={`/contacts/Update/${contact.id}`}
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  Edit
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -83,7 +88,7 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
       <pre>{JSON.stringify(session.user, null, 2)}</pre> */}
 
  
-      <a href="/auth/logout">Logout</a>
+      {/*<a href="/auth/logout">Logout</a>*/}
       
       
     </div>

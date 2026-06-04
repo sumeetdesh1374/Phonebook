@@ -1,11 +1,9 @@
-import ContactForm from "@/components/ContactForm";
-import { auth0 } from "@/lib/auth0";
-import { redirect } from "next/navigation";
+import GenericForm from "@/components/GenericForm";
+import {ComboItem} from "@/lib/formFunctions";
+import {auth0} from "@/lib/auth0";
+import {redirect} from "next/navigation";
+import {get} from "@/lib/restserverutils";
 
-interface Category {
-  id: number;
-  name: string;
-}
 
 export default async function CreateContactPage() {
   const session = await auth0.getSession();
@@ -14,31 +12,22 @@ export default async function CreateContactPage() {
     redirect("/auth/login");
   }
 
-  let categories: Category[] = [];
 
+
+  const comboRecords: Record<string, ComboItem[]> = {};  
   try {
     const accessToken = session?.tokenSet?.accessToken;
-
-    const response = await fetch(`${process.env.PHONEBOOK_API_URL}/api/categories`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    console.log("Categories API response status:", response.status);
-
-    if (response.ok) {
-      const data = await response.json();
-      categories = data.records || data;
-    }
+    comboRecords["categoryId"] = await get(`/api/categories`, accessToken);
   } catch (error) {
     console.error("Failed to fetch categories:", error);
+    redirect("/error");
   }
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-2xl mx-auto">
-        <ContactForm categories={categories} contactBaseUrl={process.env.PHONEBOOK_API_URL} />
+        {/* <ContactForm categories={categories} contactBaseUrl={process.env.PHONEBOOK_API_URL} /> */}
+        <GenericForm formConfigKey="contactForm" postUrl="/api/contacts" method="POST" payloadType="form-data" title="Contacts" postSuccessRedirectUrl="/" comboRecords={comboRecords}  />
       </div>
     </div>
   );
