@@ -10,5 +10,7 @@ namespace PhoneBook.Services
         Task<PagedList<CategoryDto>> GetAllCategoriesAsync(string profileEmail, int pageNumber, int pageSize);
         Task<List<CategoryDto>> GetAllCategoriesWithoutPagingAsync(string profileEmail);
         Task<CategoryDto> CreateCategoryAsync(CategoryDto category,string? profileEmail);
+
+        Task<CategoryDto> DeactivateCategoryAsync(int categoryId, string? profileEmail);
     }
 }

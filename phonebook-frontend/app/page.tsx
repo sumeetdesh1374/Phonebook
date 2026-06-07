@@ -47,7 +47,8 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
             <th className="border border-slate-300 p-2 text-left">Phone Number</th>
             <th className="border border-slate-300 p-2 text-left">Email</th>
             <th className="border border-slate-300 p-2 text-left">Category</th>
-            <th></th>
+            <th className="border border-slate-300 p-2 text-left"></th>
+              <th className="border border-slate-300 p-2 text-left"></th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +65,13 @@ export default async function Page({ searchParams }: { searchParams?: Record<str
                   className="text-blue-500 hover:text-blue-700"
                 >
                   Edit
+                </a>
+              </td>
+              <td className="border border-slate-300 p-2">
+                  <a href={`/contacts/Delete/${contact.id}`}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  Delete
                 </a>
               </td>
             </tr>

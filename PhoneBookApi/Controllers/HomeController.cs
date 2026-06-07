@@ -80,9 +80,11 @@ namespace PhoneBookApi.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            if (userEmail == null) return Unauthorized("User email claim is missing.");     
             if (id <= 0) return BadRequest("Valid contact ID is required.");
             try
             {

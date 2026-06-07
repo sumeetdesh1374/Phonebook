@@ -54,5 +54,24 @@ namespace PhoneBook.Services
                 })
                 .ToListAsync();
         }
+
+        public async Task<CategoryDto> DeactivateCategoryAsync(int categoryId, string? profileEmail)
+        {
+            var category = await _context.Category
+                .AsNoTracking()
+                .Where(c => c.Id == categoryId && (!c.ProfileId.HasValue || c.Profile.Email == profileEmail))
+                .FirstOrDefaultAsync();
+            if (category == null)
+                throw new InvalidOperationException("Category not found");
+
+            category.IsActive = false;
+            await _context.SaveChangesAsync();
+            return new CategoryDto
+            {
+                Id = category.Id,
+                Name = category.Name,
+                IsActive = category.IsActive
+            };
+        }
     }
 }

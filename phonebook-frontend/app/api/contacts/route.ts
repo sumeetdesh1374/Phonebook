@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const accessToken = session?.tokenSet?.accessToken;
 
 
-    const response = await post("/api/home", JSON.stringify(payLoad), accessToken);
+    const response = await post("/api/home", JSON.stringify(payLoad), accessToken,true);
     return NextResponse.json(response);
   } catch (error) {
     console.error("Error creating contact:", error);
@@ -42,11 +42,24 @@ export async function PUT(request: NextRequest) {
     const accessToken = session?.tokenSet?.accessToken;
 
 
-    const response = await put("/api/home", JSON.stringify(payLoad), accessToken);
+    const response = await put("/api/home", JSON.stringify(payLoad), accessToken,true);
     return NextResponse.json(response);
   } catch (error) {
     console.error("Error creating contact:", error);
 
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+
+  }
+  catch (error) {
+    console.error("Error deleting contact:", error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }

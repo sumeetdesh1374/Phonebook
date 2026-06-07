@@ -24,5 +24,14 @@ namespace PhoneBookApi.Controllers
             var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             return await _categoryService.GetAllCategoriesWithoutPagingAsync(userEmail);
         }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            await _categoryService.DeactivateCategoryAsync(id, userEmail);
+            return Ok();
+        }
     }
 }
